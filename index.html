@@ -74,12 +74,12 @@ const { useState, useEffect, useCallback, useMemo, useRef } = React;
    desplegar. Los 4 directivos que abran el mismo link ya quedan
    conectados automáticamente — nadie más tiene que pegar nada. */
 const FIREBASE_CONFIG = {
-  apiKey: 'AIzaSyC5fGjAfjkIjgMloi6zOPzqjTEV2qTmNb8',
-  authDomain: 'club-aletas-copacabana.firebaseapp.com',
-  projectId: 'club-aletas-copacabana',
-  storageBucket: 'club-aletas-copacabana.firebasestorage.app',
-  messagingSenderId: '54014811174',
-  appId: '1:54014811174:web:a5518c703b501fa2109ae7',
+  apiKey: 'PENDIENTE',
+  authDomain: 'PENDIENTE',
+  projectId: 'PENDIENTE',
+  storageBucket: 'PENDIENTE',
+  messagingSenderId: 'PENDIENTE',
+  appId: 'PENDIENTE',
 };
 
 /* ---------- Tokens de marca ---------- */
@@ -407,7 +407,7 @@ function EmptyState({ icon, title, subtitle }) {
 function Modal({ open, onClose, title, children, wide = false }) {
   if (!open) return null;
   return html`
-    <div class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop" onMouseDown=${onClose}>
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop" style=${{ paddingTop: 'max(1rem, env(safe-area-inset-top))', paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }} onMouseDown=${onClose}>
       <div class="w-full ${wide ? 'max-w-2xl' : 'max-w-md'} max-h-[90vh] overflow-y-auto rounded-2xl bg-white shadow-2xl modal-panel" onMouseDown=${(e) => e.stopPropagation()}>
         <div class="flex items-center justify-between px-6 py-4 sticky top-0 bg-white" style=${{ borderBottom: `1px solid ${C.borde}` }}>
           <h3 class="font-bold text-base" style=${{ color: C.texto }}>${title}</h3>
@@ -441,7 +441,7 @@ function Sidebar({ active, onNavigate, mobileOpen, setMobileOpen }) {
   return html`
     <div>
       ${mobileOpen && html`<div class="fixed inset-0 z-40 bg-black/40 lg:hidden" onClick=${() => setMobileOpen(false)}></div>`}
-      <aside class="fixed lg:sticky top-0 z-50 lg:z-0 h-screen w-72 flex flex-col transition-transform duration-300 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0" style=${{ backgroundColor: C.azul }}>
+      <aside class="fixed lg:sticky top-0 z-50 lg:z-0 h-screen w-72 flex flex-col transition-transform duration-300 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0" style=${{ backgroundColor: C.azul, paddingTop: 'env(safe-area-inset-top)' }}>
         <div class="flex items-center justify-between px-6 pt-6 pb-5">
           <div class="flex items-center gap-3">
             <${ClubMark} size=${42} />
@@ -1019,7 +1019,7 @@ function Settings({ directivos, setDirectivos, templates, setTemplates }) {
 
 function ConfigMissingScreen() {
   return html`
-    <div class="min-h-screen flex items-center justify-center p-6" style=${{ backgroundColor: C.gris }}>
+    <div class="min-h-screen flex items-center justify-center p-6" style=${{ backgroundColor: C.gris, paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
       <${Card} className="max-w-lg">
         <div class="flex items-center gap-3 mb-4"><${ClubMark} size=${40} /><h2 class="font-bold text-base" style=${{ color: C.texto }}>Falta configurar Firebase</h2></div>
         <p class="text-sm mb-3" style=${{ color: C.texto }}>Este despliegue todavía no tiene la configuración del proyecto compartido. Abre el archivo fuente y reemplaza la constante <code class="font-mono text-xs px-1 py-0.5 rounded" style=${{ backgroundColor: C.gris }}>FIREBASE_CONFIG</code> con los valores de tu proyecto de Firebase (Configuración del proyecto → Tus apps → objeto <code class="font-mono text-xs px-1 py-0.5 rounded" style=${{ backgroundColor: C.gris }}>firebaseConfig</code>), y vuelve a desplegar.</p>
@@ -1031,7 +1031,7 @@ function ConfigMissingScreen() {
 
 function ConnectingScreen({ label }) {
   return html`
-    <div class="min-h-screen flex items-center justify-center" style=${{ backgroundColor: C.gris }}>
+    <div class="min-h-screen flex items-center justify-center" style=${{ backgroundColor: C.gris, paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
       <div class="flex flex-col items-center gap-3">
         <${ClubMark} size=${48} />
         <p class="text-sm font-semibold" style=${{ color: C.textoSuave }}>${label}</p>
@@ -1041,7 +1041,7 @@ function ConnectingScreen({ label }) {
 
 function ErrorScreen({ message }) {
   return html`
-    <div class="min-h-screen flex items-center justify-center p-6" style=${{ backgroundColor: C.gris }}>
+    <div class="min-h-screen flex items-center justify-center p-6" style=${{ backgroundColor: C.gris, paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
       <${Card} className="max-w-md text-center">
         <div class="mx-auto mb-3 rounded-2xl p-3 w-fit" style=${{ backgroundColor: C.rojoSuave }}><${Icon} name="alertcircle" size=${24} color=${C.rojo} /></div>
         <p class="font-bold text-sm mb-1" style=${{ color: C.texto }}>No se pudo conectar a la base de datos compartida</p>
@@ -1109,7 +1109,7 @@ function App() {
   const meta = TITLES[active];
 
   return html`
-    <div class="min-h-screen flex" style=${{ backgroundColor: C.gris, fontFamily: 'ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif' }}>
+    <div class="min-h-screen flex" style=${{ backgroundColor: C.gris, fontFamily: 'ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif', paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
       <${Sidebar} active=${active} onNavigate=${setActive} mobileOpen=${mobileOpen} setMobileOpen=${setMobileOpen} />
       <main class="flex-1 min-w-0 px-5 py-6 sm:px-8 sm:py-8 max-w-6xl mx-auto w-full">
         <${TopHeader} title=${meta.title} subtitle=${meta.subtitle} onMenuClick=${() => setMobileOpen(true)} />
